@@ -1,14 +1,13 @@
 <div class='card'>
-    <h3 class='card-header bg-primary text-white'>
-        {{[pageTitle]}}
-        </h3>
+  <h3 class='card-header bg-primary text-white'>
+    {{[pageTitle]}}
+  </h3>
   <div class="card-body">
     <div class="row">
       <div class="col-md-2">Filter by:</div>
       <div class="input-group mb-3">
-        <input type="text"
-        [(ngModel)]="listFilter"
-        class="form-control" placeholder="Filter by:" aria-label="Filter by:" aria-describedby="basic-addon1">
+        <input type="text" [(ngModel)]="listFilter" class="form-control" placeholder="Filter by:" aria-label="Filter by:"
+          aria-describedby="basic-addon1">
       </div>
     </div>
     <div class="row">
@@ -33,18 +32,16 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let product of products">
-            <td><img  *ngIf="showImage"
-                      [src]="product.imageUrl"
-                      alt="productimage"
-                      [title]="product.productName"
-                      [style.width.px]="imageWidth"
-                      [style.margin.px]="imageMargin"></td>
+          <tr *ngFor="let product of filteredProducts">
+            <td><img *ngIf="showImage" [src]="product.imageUrl" alt="productimage" [title]="product.productName"
+                [style.width.px]="imageWidth" [style.margin.px]="imageMargin"></td>
             <td>{{product.productName}}</td>
-            <td>{{product.productCode | lowercase}}</td>
+            <td>{{product.productCode | lowercase | convertToSpaces:'-'}}</td>
             <td>{{product.releaseDate}}</td>
-            <td>{{product.price | currency:'EUR':true:'1.2-2'}}</td>
-            <td>{{product.starRating}}</td>
+            <td>{{product.price | currency:'EUR':code:'1.2-2'}}</td>
+            <td>
+              <app-star-rating (notify)="onNotify($event)" [rating]="product.starRating"></app-star-rating>
+            </td>
           </tr>
         </tbody>
       </table>
