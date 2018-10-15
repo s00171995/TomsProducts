@@ -1,6 +1,6 @@
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
+import { faStar, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
@@ -29,6 +29,7 @@ const routes: Routes = [
 ];
 
 library.add(faStar);
+library.add(faTrash);
 
 @NgModule({
   declarations: [

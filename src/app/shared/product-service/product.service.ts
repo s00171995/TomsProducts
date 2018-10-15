@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { IProduct } from "../../product-list/product";
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Observable } from "rxjs";
-import { catchError, tap } from "rxjs/operators";
+import { catchError, map } from "rxjs/operators";
 import {
   AngularFirestoreCollection,
   AngularFirestore
@@ -23,16 +23,30 @@ export class ProductService {
   }
 
   getProducts(): Observable<IProduct[]> {
-    return (this.products = this.productsCollection.valueChanges());
-
-    // return this._http.get<IProduct[]>(this.endpoint).pipe(
-    //   tap(data => console.log(data)),
-    //   catchError(this.handleError)
-    // );
+    this.products = this.productsCollection.snapshotChanges().pipe(
+      map(actions =>
+        actions.map(a => {
+          const data = a.payload.doc.data() as IProduct;
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        })
+      )
+    );
+    return this.products;
   }
 
   addProduct(product: IProduct): void {
     this.productsCollection.add(product);
+  }
+  deleteProduct(id: string) {
+    console.log(id);
+    this.productsCollection
+      .doc(id)
+      .delete()
+      .catch(error => {
+        console.log("error :" + error);
+      })
+      .then(() => console.log("deleted Product id: " + id));
   }
 
   private handleError(err: HttpErrorResponse) {

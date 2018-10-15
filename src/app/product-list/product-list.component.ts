@@ -52,11 +52,14 @@ export class ProductListComponent implements OnInit {
   onNotify(message: string): void {
     console.log(message);
   }
-
+  delete(id: string) {
+    console.log(id);
+    this._productService.deleteProduct(id);
+  }
   ngOnInit() {
     this._productService.getProducts().subscribe(products => {
       (this.products = products),
-        (this.filteredProducts = this.products),
+        (this.filteredProducts = products),
         error => (this.errorMessage = <any>error);
     });
   }

@@ -13,15 +13,12 @@ export class AddProductComponent implements OnInit {
 
   private product: IProduct;
 
-  @Output()
-  emmitter: EventEmitter<IProduct> = new EventEmitter<IProduct>();
-
   ngOnInit() {}
 
-  onAdd(id, name, code, releaseDate, price, rating, img): void {
+  onAdd(id, name, code, releaseDate, description, price, rating, img): void {
     this.product = {
       productId: id,
-      description: name,
+      description: description,
       productName: name,
       productCode: code,
       releaseDate: releaseDate,
