@@ -1,18 +1,12 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">Navbar</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
-    aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav">
-      <li class="nav-item active">
-        <a class="nav-link" [routerLink]="['home']">Products<span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" [routerLink]="['add-product']">Add Products</a>
-      </li>
-    </ul>
-  </div>
-</nav>
+<mat-toolbar color="primary">
+  <button mat-button routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" routerLink="/home">Toms Products</button>
+  <button mat-button routerLinkActive="active" *ngIf="auth.isLoggedIn()" routerLink="/product-list">List of Products</button>
+  <button mat-button routerLinkActive="active" *ngIf="auth.isLoggedIn()" routerLink="/add-product">Add a Product</button>
+
+  <span style="flex: 1 1 auto"></span>
+  <button mat-button routerLinkActive="active" *ngIf="!auth.isLoggedIn()" routerLink="/login">Login</button>
+  <button mat-button routerLinkActive="active" *ngIf="auth.isLoggedIn()" (click)="onLogout()">Logout</button>
+  <button mat-button routerLinkActive="active" *ngIf="!auth.isLoggedIn()" routerLink="/signup">Register</button>
+
+</mat-toolbar>
 <router-outlet></router-outlet>

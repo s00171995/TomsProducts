@@ -8,21 +8,15 @@ import { ProductService } from "../shared/product-service/product.service";
   styleUrls: ["./product-list.component.css"]
 })
 export class ProductListComponent implements OnInit {
-  pageTitle: string = "Joe's Products";
   imageWidth: number = 50;
   imageMargin: number = 2;
   showImage: boolean = false;
-  private errorMessage = "";
+  private errorMessage: string;
 
   constructor(private _productService: ProductService) {
     this.filteredProducts = this.products;
     // this._productService.addAllProducts();
   }
-
-  //do
-  // add-product component - form to add new product - use url for image
-  // add-product to array
-  // routing/navigation 3 pages 3 ProductList - AddProduct - PageNotFound
 
   _listboxFilter: string;
   get listboxFilter(): string {
