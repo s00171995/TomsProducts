@@ -7,6 +7,5 @@
   <button mat-button routerLinkActive="active" *ngIf="!auth.isLoggedIn()" routerLink="/login">Login</button>
   <button mat-button routerLinkActive="active" *ngIf="auth.isLoggedIn()" (click)="onLogout()">Logout</button>
   <button mat-button routerLinkActive="active" *ngIf="!auth.isLoggedIn()" routerLink="/signup">Register</button>
-
 </mat-toolbar>
 <router-outlet></router-outlet>

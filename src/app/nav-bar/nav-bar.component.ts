@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../shared/auth/auth.service';
 import { Router } from '@angular/router';
+import { auth } from 'firebase';
 
 @Component({
   selector: 'app-nav-bar',
@@ -10,8 +11,12 @@ import { Router } from '@angular/router';
 export class NavBarComponent implements OnInit {
   pageTitle = "Joes Products";
   isLoggedIn: boolean;
-  constructor(public auth: AuthService, private router: Router) { }
-
+  
+  constructor(public auth: AuthService, private router: Router) {
+    
+   }
+  username: string;
+  
   userLoggedIn() : boolean {
     this.isLoggedIn = this.auth.isLoggedIn()
     return this.isLoggedIn

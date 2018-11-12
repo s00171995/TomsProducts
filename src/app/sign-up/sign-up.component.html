@@ -1,33 +1,30 @@
-<mat-card>
-  <mat-card-header>
-    <mat-card-title>
-      Register
-    </mat-card-title>
-  </mat-card-header>
+<mat-card class="card">
+  <mat-card-title>
+    Register
+  </mat-card-title>
   <mat-card-content>
     <form>
-     
       <mat-form-field class="full-width">
         <mat-label>Email</mat-label>
         <input matInput type="email" [(ngModel)]="email" name="email" placeholder="Email">
       </mat-form-field>
-     
+
       <mat-form-field class="full-width">
-      <mat-label>Password</mat-label>
-      <input matInput type="password" [(ngModel)]="pwd" name="password" placeholder="Password">
+        <mat-label>Password</mat-label>
+        <input matInput type="password" [(ngModel)]="pwd" name="password" placeholder="Password">
       </mat-form-field>
-      
+
       <mat-form-field class="full-width">
-      <mat-label>Username</mat-label>
-      <input matInput [(ngModel)]="name" name="name" placeholder="Username">
+        <mat-label>Username</mat-label>
+        <input matInput [(ngModel)]="name" name="name" placeholder="Username">
       </mat-form-field>
-      
+
       <mat-form-field class="full-width">
-      <mat-label>Description</mat-label>
-      <textarea matInput [(ngModel)]="description"  name="description" placeholder="Description"></textarea>
+        <mat-label>Description</mat-label>
+        <textarea matInput [(ngModel)]="description" name="description" placeholder="Description"></textarea>
       </mat-form-field>
-      
-      <button mat-raised-button (click)="register()"  color="primary">Sign Up</button>
+
+      <button mat-raised-button (click)="register()" color="primary">Sign Up</button>
     </form>
   </mat-card-content>
 </mat-card>

@@ -25,7 +25,7 @@ export class ProductService {
   getProducts(): Observable<IProduct[]> {
     this.products = this.productsCollection.snapshotChanges().pipe(
       map(actions =>
-        actions.map(a => {
+          actions.map(a => {
           const data = a.payload.doc.data() as IProduct;
           const id = a.payload.doc.id;
           return { id, ...data };
