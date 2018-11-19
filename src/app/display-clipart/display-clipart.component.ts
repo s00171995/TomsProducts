@@ -9,19 +9,22 @@ import { ClipArtApiService } from "../shared/clip-art-api/clip-art-api.service";
 export class DisplayClipartComponent implements OnInit {
   @Input()
   imageStr: string;
+
   @Output()
-  addImage: EventEmitter<any> = new EventEmitter();
+  addImage: EventEmitter<IOpenClipArt> = new EventEmitter<IOpenClipArt>();
+
   clipArtData: IOpenClipArt;
+
   constructor(private _clipArtService: ClipArtApiService) {}
 
   ngOnInit() {
     this._clipArtService.getImages(this.imageStr).subscribe(data => {
+      console.log(this.imageStr)
       this.clipArtData = data;
     });
   }
-  selectImage(imageStr) : boolean {
-    console.log('image selected and emitted from clip art component', imageStr)
+  selectImage(imageStr): void {
+    console.log("image selected and emitted from clip art component", imageStr);
     this.addImage.emit(imageStr);
-    return false;
   }
 }

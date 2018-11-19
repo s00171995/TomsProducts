@@ -34,6 +34,9 @@ export class LoginComponent implements OnInit {
 
   loginWithGoogle() {
     this.auth.doGoogleLogin()
+    .then(() => {
+      this.router.navigate(['product-list'])
+    })
   }
 
 }

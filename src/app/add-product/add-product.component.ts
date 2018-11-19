@@ -11,7 +11,9 @@ import { Router } from "@angular/router";
 export class AddProductComponent implements OnInit {
   pageTitle = "Add a product";
   showDisplayComponent: boolean;
+  imageStr:string;
   imgUrl:string;
+  
   constructor(private _productService: ProductService, private router: Router) {}
 
   private product: IProduct;
@@ -22,14 +24,12 @@ export class AddProductComponent implements OnInit {
     this.showDisplayComponent =!this.showDisplayComponent
     return false;
   }
-  addImageToInput(evt) : boolean {
-    console.log(evt)
-    this.imgUrl = evt
-    console.log(this.imgUrl)
-    return false
+  addImageToInput($evt)  {
+    console.log('Event from add product component', $evt)
+    this.imgUrl = $evt
   }
 
-  onAdd(id, name, code, releaseDate, description, price, rating, img): void {
+  onAdd(id, name, code, releaseDate, description, price, rating): void {
     this.product = {
       productId: id,
       description: description,

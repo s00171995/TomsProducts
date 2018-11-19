@@ -14,7 +14,7 @@ export class ProductListComponent implements OnInit {
   private errorMessage: string;
 
   constructor(private _productService: ProductService) {
-    this.filteredProducts = this.products;
+    // this.filteredProducts = this.products;
     // this._productService.addAllProducts();
   }
 
@@ -52,8 +52,8 @@ export class ProductListComponent implements OnInit {
   }
   ngOnInit() {
     this._productService.getProducts().subscribe(products => {
-      (this.products = products),
-        (this.filteredProducts = products),
+      this.products = products,
+      this.filteredProducts = this.products,
         error => (this.errorMessage = <any>error);
     });
   }

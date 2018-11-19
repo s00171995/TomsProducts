@@ -3,7 +3,7 @@
     Login
   </mat-card-title>
   <mat-card-content>
-    <form class="myForm" [formGroup]="form" (ngSubmit)="login()">
+    <form class="myForm" [formGroup]="form" >
       <mat-form-field class="full-width">
         <mat-label>Email</mat-label>
         <input matInput type="email" placeholder="Email" name="email" formControlName="email">

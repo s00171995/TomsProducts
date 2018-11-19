@@ -38,19 +38,19 @@
               #rating>
           </div>
           <div class="form-group" fxLayoutGap='20px'>
-            <input [(ngModel)]='imageStr' fxFlex="60" type="text" id="imageStr" placeholder="Image" class="form-control">
+            <input [(ngModel)]='imageStr' name='imageStr' fxFlex="60" type="text" id="imageStr" placeholder="Image" class="form-control">
             <button fxFlex="20" mat-raised-button color="primary" type="submit" (click)="showHideComponent()">Find
               Images</button>
           </div>
           <div class="form-group">
-            <app-display-clipart (selectImage)="addImageToInput($event)" *ngIf="showDisplayComponent" [imageStr]="imageStr"></app-display-clipart>
+            <app-display-clipart (addImage)="addImageToInput($event)" *ngIf="showDisplayComponent" [imageStr]="imageStr"></app-display-clipart>
           </div>
           <div class="form-group">
             <label for="imageUrl">Image (URL)</label>
-            <input type="text" class="form-control form-control-sm" type="text" placeholder="Image" id="imageUrl" #img>
+            <input [(ngModel)]="imgUrl" name="imgUrl" type="text" class="form-control form-control-sm" type="text" placeholder="Image" id="imageUrl" >
           </div>
         </div>
-        <button class="btn btn-primary btn-sm" (click)="onAdd(id.value,name.value,code.value,releaseDate.value,desc.value,price.value,rating.value,img.value)">Add
+        <button class="btn btn-primary btn-sm" (click)="onAdd(id.value,name.value,code.value,releaseDate.value,desc.value,price.value,rating.value)">Add
           Product
         </button>
       </form>

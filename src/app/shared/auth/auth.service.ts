@@ -1,43 +1,48 @@
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { AngularFireAuth } from '@angular/fire/auth';
-import { Router } from '@angular/router';
-// import { NotificationService } from './notification.service';
-import * as firebase from 'firebase/';
-import { NotificationService } from '../notification/notification.service';
+import { Injectable } from "@angular/core";
+import { Observable } from "rxjs";
+import { AngularFireAuth } from "@angular/fire/auth";
+import { Router } from "@angular/router";
+import * as firebase from "firebase/";
+import { NotificationService } from "../notification/notification.service";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class AuthService {
-  
   private user: Observable<firebase.User>;
   loggedInStatus: boolean = false;
 
-  constructor(private _firebaseAuth: AngularFireAuth, private router: Router, public notifier: NotificationService) {
+  constructor(
+    private _firebaseAuth: AngularFireAuth,
+    private router: Router,
+    public notifier: NotificationService
+  ) {
     this.user = _firebaseAuth.authState;
-    console.log(this.user)
+    console.log(this.user);
   }
 
   signup(email: string, password: string, name: string) {
     // clear all messages
-    this.notifier.display(false, '');
-    this._firebaseAuth
-      .auth
+    this.notifier.display(false, "");
+    this._firebaseAuth.auth
       .createUserWithEmailAndPassword(email, password)
-      .then((res) => {
+      .then(res => {
         this.sendEmailVerification();
-        const message = 'A verification email has been sent, please check your email and follow the steps!';
+        const message =
+          "A verification email has been sent, please check your email and follow the steps!";
         this.notifier.display(true, message);
-        return firebase.database().ref('users/' + res.user.uid).set({
-          email: res.user.email,
-          uid: res.user.uid,
-          registrationDate: new Date().toString(),
-          name: name
-        })
+        return firebase
+          .database()
+          .ref("users/" + res.user.uid)
+          .update({
+            email: res.user.email,
+            uid: res.user.uid,
+            registrationDate: new Date().toString(),
+            name: name
+          })
           .then(() => {
             firebase.auth().signOut();
-            this.router.navigate(['login']);
+            this.router.navigate(["login"]);
           });
       })
       .catch(err => {
@@ -48,58 +53,64 @@ export class AuthService {
 
   sendEmailVerification() {
     this._firebaseAuth.authState.subscribe(user => {
-      user.sendEmailVerification()
-        .then(() => {
-          console.log('email sent');
-        });
+      user.sendEmailVerification().then(() => {
+        console.log("email sent");
+      });
     });
   }
 
-  doRegister(value){
+  doRegister(value) {
     return new Promise<any>((resolve, reject) => {
-      firebase.auth().createUserWithEmailAndPassword(value.email, value.password)
-      .then(res => {
-        resolve(res);
-      }, err => reject(err))
-    })
+      firebase
+        .auth()
+        .createUserWithEmailAndPassword(value.email, value.password)
+        .then(
+          res => {
+            resolve(res);
+          },
+          err => reject(err)
+        );
+    });
   }
 
-  doLogin(value){
-    return new Promise<any>((resolve, reject) => {
-      firebase.auth().signInWithEmailAndPassword(value.email, value.password)
-      .then(res => {
-        resolve(res);
-        this.loggedInStatus = true;
-      }, err => reject(err))
-    })
-  }
-
-  doLogout(){
+  doLogout() {
     return new Promise((resolve, reject) => {
-      if(firebase.auth().currentUser){
-        this._firebaseAuth.auth.signOut()
+      if (firebase.auth().currentUser) {
+        this._firebaseAuth.auth.signOut();
         resolve();
-      }
-      else{
+      } else {
         reject();
       }
       this.loggedInStatus = false;
-
     });
   }
-  isLoggedIn():boolean {
-      return this.loggedInStatus;
+  isLoggedIn(): boolean {
+    return this.loggedInStatus;
   }
-  doGoogleLogin(){
+  doLogin(value) {
     return new Promise<any>((resolve, reject) => {
-      let provider = new firebase.auth.GoogleAuthProvider();
-      provider.addScope('profile');
-      provider.addScope('email');
-      this._firebaseAuth.auth
-      .signInWithPopup(provider)
-      .then(res => {
-        resolve(res);
-      })
-    })
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(value.email, value.password)
+        .then(
+          res => {
+            resolve(res);
+            this.loggedInStatus = true;
+          },
+          err => reject(err)
+        );
+    });
+  }
+  doGoogleLogin() {
+    return new Promise<any>((resolve, reject) => {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      return this._firebaseAuth.auth
+        .signInWithPopup(provider)
+        .then(credential => {
+          resolve(credential);
+          this.loggedInStatus = true;
+          console.log(credential);
+        });
+    });
   }
 }
