@@ -21,6 +21,7 @@ export class AuthService {
     console.log(this.user);
   }
 
+  // sign up using email and password
   signup(email: string, password: string, name: string) {
     // clear all messages
     this.notifier.display(false, "");
@@ -51,6 +52,7 @@ export class AuthService {
       });
   }
 
+  // send verification email
   sendEmailVerification() {
     this._firebaseAuth.authState.subscribe(user => {
       user.sendEmailVerification().then(() => {
@@ -58,21 +60,7 @@ export class AuthService {
       });
     });
   }
-
-  doRegister(value) {
-    return new Promise<any>((resolve, reject) => {
-      firebase
-        .auth()
-        .createUserWithEmailAndPassword(value.email, value.password)
-        .then(
-          res => {
-            resolve(res);
-          },
-          err => reject(err)
-        );
-    });
-  }
-
+  // logging out method - set status to false which changes which nav items to display
   doLogout() {
     return new Promise((resolve, reject) => {
       if (firebase.auth().currentUser) {
@@ -84,9 +72,12 @@ export class AuthService {
       this.loggedInStatus = false;
     });
   }
+
   isLoggedIn(): boolean {
     return this.loggedInStatus;
   }
+
+  // logging in with email and password
   doLogin(value) {
     return new Promise<any>((resolve, reject) => {
       firebase
@@ -101,6 +92,8 @@ export class AuthService {
         );
     });
   }
+
+  // logging in with google 
   doGoogleLogin() {
     return new Promise<any>((resolve, reject) => {
       const provider = new firebase.auth.GoogleAuthProvider();

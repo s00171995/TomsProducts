@@ -43,9 +43,11 @@
               Images</button>
           </div>
           <div class="form-group">
+            <!-- clip art sub component - recieving event emmitter and using it in a function -->
             <app-display-clipart (addImage)="addImageToInput($event)" *ngIf="showDisplayComponent" [imageStr]="imageStr"></app-display-clipart>
           </div>
           <div class="form-group">
+            <!-- using [(ngModel)] here to put the selected img url into the input -->
             <label for="imageUrl">Image (URL)</label>
             <input [(ngModel)]="imgUrl" name="imgUrl" type="text" class="form-control form-control-sm" type="text" placeholder="Image" id="imageUrl" >
           </div>

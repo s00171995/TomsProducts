@@ -10,6 +10,7 @@ export class DisplayClipartComponent implements OnInit {
   @Input()
   imageStr: string;
 
+  //event emmitter which needs to recieved by the parent component
   @Output()
   addImage: EventEmitter<IOpenClipArt> = new EventEmitter<IOpenClipArt>();
 
@@ -18,11 +19,14 @@ export class DisplayClipartComponent implements OnInit {
   constructor(private _clipArtService: ClipArtApiService) {}
 
   ngOnInit() {
+    //making call to api service for clip art images
     this._clipArtService.getImages(this.imageStr).subscribe(data => {
       console.log(this.imageStr)
       this.clipArtData = data;
     });
   }
+
+  //emitting img url to parent component
   selectImage(imageStr): void {
     console.log("image selected and emitted from clip art component", imageStr);
     this.addImage.emit(imageStr);

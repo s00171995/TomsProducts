@@ -11,7 +11,9 @@ import { AuthService } from '../shared/auth/auth.service';
 export class LoginComponent implements OnInit {
   errorMessage: string;
   form;
+
   constructor(private fb: FormBuilder, private router: Router, private auth: AuthService) {
+    // setting up form validation
     this.form = fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
@@ -21,6 +23,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
+   // do login with email and password by calling auth service
   login() {
     this.auth.doLogin(this.form.value)
     .then(res => {
@@ -32,6 +35,7 @@ export class LoginComponent implements OnInit {
     })
   }
 
+  // or a user may login with their google account which also calls the auth service
   loginWithGoogle() {
     this.auth.doGoogleLogin()
     .then(() => {

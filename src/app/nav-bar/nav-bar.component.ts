@@ -1,34 +1,22 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../shared/auth/auth.service';
-import { Router } from '@angular/router';
-import { auth } from 'firebase';
+import { Component, OnInit } from "@angular/core";
+import { AuthService } from "../shared/auth/auth.service";
+import { Router } from "@angular/router";
+import { auth } from "firebase";
 
 @Component({
-  selector: 'app-nav-bar',
-  templateUrl: './nav-bar.component.html',
-  styleUrls: ['./nav-bar.component.css']
+  selector: "app-nav-bar",
+  templateUrl: "./nav-bar.component.html",
+  styleUrls: ["./nav-bar.component.css"]
 })
 export class NavBarComponent implements OnInit {
-  pageTitle = "Joes Products";
-  isLoggedIn: boolean;
-  
-  constructor(public auth: AuthService, private router: Router) {
-    
-   }
-  username: string;
-  
-  userLoggedIn() : boolean {
-    this.isLoggedIn = this.auth.isLoggedIn()
-    return this.isLoggedIn
-  }
+
+  constructor(public auth: AuthService, private router: Router) {}
+
+  // log out by calling auth service
   onLogout() {
     this.auth.doLogout();
-    this.isLoggedIn = this.auth.isLoggedIn()
-    this.router.navigate(['login'])
+    this.router.navigate(["login"]);
   }
 
-  ngOnInit() {
-    this.isLoggedIn = this.auth.isLoggedIn()
-  }
-
+  ngOnInit() {}
 }

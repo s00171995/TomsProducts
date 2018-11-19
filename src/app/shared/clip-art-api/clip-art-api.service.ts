@@ -9,6 +9,7 @@ export class ClipArtApiService {
   data: IOpenClipArt;
   constructor(private _http: HttpClient) { }
  
+  // http call to open clip art api to get images based on a search query
   getImages(imageStr: string)  : Observable<IOpenClipArt>  {
     return this._http.get<IOpenClipArt>(this.url+imageStr)
   } 

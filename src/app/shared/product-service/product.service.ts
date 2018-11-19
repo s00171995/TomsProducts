@@ -12,16 +12,23 @@ import {
   providedIn: "root"
 })
 export class ProductService {
+  // needed this to push the current products to firestore using fakejson server - no longer needed
   private endpoint = "http://localhost:3000/products";
+ 
   productsCollection: AngularFirestoreCollection<IProduct>;
   products: Observable<IProduct[]>;
+ 
+  // product array for fakejson server
   allProducts: IProduct[];
   errorMessage: string;
 
   constructor(private _http: HttpClient, private _afs: AngularFirestore) {
+    //initializing the products collection based on the collection name in firestore
     this.productsCollection = _afs.collection<IProduct>("products");
   }
 
+  //get all products from the database along with the document id's for each product 
+  // getting doc ids so we can delete a product
   getProducts(): Observable<IProduct[]> {
     this.products = this.productsCollection.snapshotChanges().pipe(
       map(actions =>
@@ -35,9 +42,12 @@ export class ProductService {
     return this.products;
   }
 
+  // adding product will add it to that collection in the databse
   addProduct(product: IProduct): void {
     this.productsCollection.add(product);
   }
+
+  // deleting items in the database by specifying the document id
   deleteProduct(id: string) {
     console.log(id);
     this.productsCollection
@@ -54,6 +64,7 @@ export class ProductService {
     return Observable.throw(err.message);
   }
 
+  // add all products to the db using fakejson serve
   addAllProducts() {
     this._http.get<IProduct[]>(this.endpoint).subscribe(products => {
       this.allProducts = products;

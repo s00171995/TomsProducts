@@ -1,3 +1,4 @@
+// interface needed for getting data from open clip art api
 interface IOpenClipArt {
     payload: IPayLoad []
 }

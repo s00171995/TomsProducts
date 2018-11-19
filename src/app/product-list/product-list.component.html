@@ -39,9 +39,11 @@
             <td>{{ product.description }}</td>
             <td>{{product.price | currency:'EUR':code:'1.2-2'}}</td>
             <td>
+              <!-- star rating sub component displays the star rating for each product and recieve event emmitter here too -->
               <app-star-rating (notify)="onNotify($event)" [rating]="product.starRating"></app-star-rating>
             </td>
             <td>
+              <!-- delete product with trash icon -->
               <fa-icon class="btn btn-danger btn-sm" icon="trash" (click)="delete(product.id)"></fa-icon>
             </td>
           </tr>

@@ -20,15 +20,20 @@ export class AddProductComponent implements OnInit {
 
   ngOnInit() {}
 
+  // show / hide search results
   showHideComponent() : boolean {
     this.showDisplayComponent =!this.showDisplayComponent
     return false;
   }
+
+  //Receiving the event emmitter and assigning it to a varaible
   addImageToInput($evt)  {
     console.log('Event from add product component', $evt)
     this.imgUrl = $evt
   }
 
+  //passing in the parameters needed for creating a product
+  // I could have used [(ngModel)] but this works too
   onAdd(id, name, code, releaseDate, description, price, rating): void {
     this.product = {
       productId: id,
