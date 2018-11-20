@@ -106,4 +106,18 @@ export class AuthService {
         });
     });
   }
+
+    // logging in with facebook 
+    doFacebookLogin() {
+      return new Promise<any>((resolve, reject) => {
+        const provider = new firebase.auth.FacebookAuthProvider();
+        return this._firebaseAuth.auth
+          .signInWithPopup(provider)
+          .then(credential => {
+            resolve(credential);
+            this.loggedInStatus = true;
+            console.log(credential);
+          });
+      });
+    }
 }

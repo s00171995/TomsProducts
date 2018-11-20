@@ -43,4 +43,11 @@ export class LoginComponent implements OnInit {
     })
   }
 
+  loginWithFacebook() {
+    this.auth.doFacebookLogin()
+    .then(() =>{
+      this.router.navigate(['product-list'])
+    })
+  }
+
 }
