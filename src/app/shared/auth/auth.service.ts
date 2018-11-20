@@ -93,7 +93,7 @@ export class AuthService {
     });
   }
 
-  // logging in with google 
+  // logging in with google
   doGoogleLogin() {
     return new Promise<any>((resolve, reject) => {
       const provider = new firebase.auth.GoogleAuthProvider();
@@ -107,17 +107,18 @@ export class AuthService {
     });
   }
 
-    // logging in with facebook 
-    doFacebookLogin() {
-      return new Promise<any>((resolve, reject) => {
-        const provider = new firebase.auth.FacebookAuthProvider();
-        return this._firebaseAuth.auth
-          .signInWithPopup(provider)
-          .then(credential => {
-            resolve(credential);
-            this.loggedInStatus = true;
-            console.log(credential);
-          });
-      });
-    }
+  // logging in with facebook
+  // LOGGING IN WITH FACEBOOK - this wont work if you have already logged in with google and your google/facebook email are the same
+  doFacebookLogin() {
+    return new Promise<any>((resolve, reject) => {
+      const provider = new firebase.auth.FacebookAuthProvider();
+      return this._firebaseAuth.auth
+        .signInWithPopup(provider)
+        .then(credential => {
+          resolve(credential);
+          this.loggedInStatus = true;
+          console.log(credential);
+        });
+    });
+  }
 }
